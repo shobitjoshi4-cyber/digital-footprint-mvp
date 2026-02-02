@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Exposure Check</title>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 40px; }
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; }
+    button { background: black; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+<h1>How many apps still have access to your email?</h1>
+<p>Get your digital exposure summary.</p>
+
+<form id="form">
+  <input type="email" id="email" placeholder="Enter your email" required />
+
+  <label>What worries you most?</label>
+  <select id="worry">
+    <option>Privacy</option>
+    <option>Security</option>
+    <option>Spam</option>
+    <option>Just curious</option>
+  </select>
+
+  <label>Which sounds like you?</label>
+  <select id="behavior">
+    <option>Signed up for apps years ago</option>
+    <option>Reuse same email everywhere</option>
+    <option>No idea which accounts are active</option>
+  </select>
+
+  <button type="submit">Check your digital exposure</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const worry = document.getElementById("worry").value;
+  const behavior = document.getElementById("behavior").value;
+
+  await fetch("/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, worry, behavior })
+  });
+
+  document.getElementById("message").innerText =
+    "Thanks! Your digital exposure summary will arrive shortly.";
+});
+</script>
+
+</body>
+</html>
 
